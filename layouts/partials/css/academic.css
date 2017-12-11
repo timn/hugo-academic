@@ -1011,6 +1011,10 @@ article .article-metadata {
   margin-bottom: 0;
 }
 
+.contact-symbol {
+  padding-top: .25rem;
+}
+
 #map {
   height: 350px;
   width: 100%;
