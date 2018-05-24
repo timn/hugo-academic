@@ -78,6 +78,7 @@
   {{ end }}
 
   {{ if .Site.GoogleAnalytics }}
+  {{   if not .Site.Params.google_analytics.disable_autotrack }}
     <script>
       window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
       ga('create', '{{ .Site.GoogleAnalytics }}', 'auto');
@@ -93,6 +94,16 @@
     {{ else }}
     <script async src="//cdnjs.cloudflare.com/ajax/libs/autotrack/{{- $sri.js.autotrack.version -}}/autotrack.js"></script>
     {{ end }}
+  {{   else }}
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.GoogleAnalytics }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ .Site.GoogleAnalytics }}'{{ if .Site.Params.google_analytics.anonymize }}, { 'anonymize_ip': true }{{ end }});
+  </script>
+  {{   end }}
   {{ end }}
 
   {{ if or .Site.RSSLink .RSSLink }}
